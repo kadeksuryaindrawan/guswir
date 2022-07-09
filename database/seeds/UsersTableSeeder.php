@@ -27,20 +27,6 @@ class UsersTableSeeder extends Seeder
                 'password'=>Hash::make('surya123'),
                 'role'=>'Customer'
             ],
-            [
-                'id'=>3,
-                'name'=>'John Doe',
-                'email'=>'john_doe@gmail.com',
-                'password'=>Hash::make('johndoe'),
-                'role'=>'Customer'
-            ],
-            [
-                'id'=>4,
-                'name'=>'Emillie Norton',
-                'email'=>'emillie_norton@gmail.com',
-                'password'=>Hash::make('johndoe'),
-                'role'=>'Customer'
-            ],
         ]);
     }
 }
