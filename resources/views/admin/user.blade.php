@@ -15,10 +15,9 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone Number</th>
-                    <th scope="col">Country</th>
                     <th scope="col">City</th>
                     <th scope="col">Address</th>
-                    <th scope="col">Zipcode</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -28,10 +27,12 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phonenumber }}</td>
-                    <td>{{ $user->country }}</td>
                     <td>{{ $user->city }}</td>
                     <td>{{ $user->address }}</td>
-                    <td>{{ $user->zipcode }}</td>
+                    <td>
+                      <a href=""><button class="btn btn-primary btn-sm">Edit</button></a>
+                      <a href=""><button class="btn btn-danger btn-sm">Delete</button></a>
+                    </td>
                   </tr>
                 @endforeach
                 </tbody>

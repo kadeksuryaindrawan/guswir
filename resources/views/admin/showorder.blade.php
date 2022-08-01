@@ -13,7 +13,6 @@
                 <div class="row">
                     <div class="col-5">
                         Order ID<br>
-                        Payment ID <br>
                         Buyer ID<br>
                         Buyer Name <br>
                         Phone Number <br>
@@ -22,11 +21,10 @@
                     </div>
                     <div class="col-7">
                         : {{ $id->id }} <br>
-                        : {{ $id->payment_id }} <br>
                         : {{ $id->user_id }} <br>
                         : {{ $id->name }} <br>
                         : {{ $id->phonenumber }} <br>
-                        : PAID
+                        : {{ $id->status }}
                     </div>
                 </div>
                 
@@ -38,21 +36,30 @@
                 <hr>
                 <div class="row">
                     <div class="col-5">
-                        Country <br>
                         City <br>
-                        Zipcode <br>
                         Address <br>
                         
                     </div>
                     <div class="col-7">
-                        : {{ $id->country }} <br>
                         : {{ $id->city }} <br>
-                        : {{ $id->zipcode }} <br>
                         : {{ $id->address }} <br>
                         
                     </div>
                 </div>
             </div>
+            @if ($id->status == 'sudah bayar')
+                <div class="col-12 col-lg-12 col-md-12 col-sm-12 pt-5">
+                    <h5>Action</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-5">
+                            <a href="{{ route('order.acc',['id'=>$id->id]) }}"><button class="btn btn-success btn-sm">Selesaikan</button></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            @endif
+            
            @endforeach
         </div>
         </div>
@@ -70,14 +77,11 @@
                                 <div class="detail-1">
                                     <h5>{{ $item['item']['name'] }}</h5>
                                 </div>
-                                <div class="detail-2">
-                                    <h6>Size: {{ $item['size'] }}</h6>
-                                </div>
                                 <div class="detail-3">
                                     <h6>Quantity: {{ $item['quantity'] }}</h6>
                                 </div>
                                 <div class="detail-4">
-                                    <h6>Price: RM   {{ $item['price'] }}</h6>
+                                    <h6>Price: Rp.   {{ number_format( $item['price'],0,",",".") }}</h6>
                                 </div>
                             </div> 
                         </div>

@@ -11,14 +11,11 @@ class CartController extends Controller
 {
     public function add(Request $request, $id)
     {
-        if(isset($_COOKIE["shoes_size"])){
-            $size=$_COOKIE["shoes_size"];
-        }
         
         $product = Product::find($id);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product,$product->id,$size);
+        $cart->add($product,$product->id);
         //dd($cart);
         $request->session()->put('cart',$cart);
         return redirect()->route('cart.index');

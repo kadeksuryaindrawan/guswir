@@ -7,6 +7,7 @@ use Session;
 use Auth;
 use App\Cart;
 use App\Order;
+use App\Profile;
 use App\Stock;
 use DB;
 
@@ -29,14 +30,8 @@ class CheckoutController extends Controller
         $this->validate(request(), [
             'name' => 'required|string',
             'phonenumber' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:8',
-            'country' => 'required|string',
             'city' => 'required|string',
             'address' => 'required',
-            'zipcode' => 'required|digits:5',
-            'creditcardnumber' => 'required|digits:16',
-            'expiremonth' => 'required|digits:2',
-            'expireyear' => 'required|digits:2',
-            'cvc' => 'required|digits:3',
         ]);
         
         if(!Session::has('cart')){
@@ -47,7 +42,6 @@ class CheckoutController extends Controller
 
         foreach ($cart->items as $order) {
             Stock::where('product_id',$order['product_id'])
-                    ->where('name',$order['size'])
                     ->decrement('quantity');
         }
         
@@ -57,9 +51,13 @@ class CheckoutController extends Controller
         $order->address = $request->input('address');
         $order->name = $request->input('name');
         $order->phonenumber = $request->input('phonenumber');
+        $order->status = 'sudah bayar';
         $order->city = $request->input('city');
-        $order->country = $request->input('country');
-        $order->zipcode = $request->input('zipcode');
+
+        $profile = new Profile();
+        $profile->address = $request->input('address');
+        $profile->phonenumber = $request->input('phonenumber');
+        $profile->city = $request->input('city');
         
         Auth::user()->orders()->save($order);
 

@@ -39,52 +39,6 @@
             </div>
 
             <div class="col-12">
-                <label for="brand" class="">{{ __('Brand') }}</label>
-                <div class="form-group">
-                    <div>
-                        <select name="brand" id="addproductbrand" class="form-control">
-                            <option selected="true" value="" disabled hidden>Choose product brand</option>
-                            <option value="Nike">Nike</option>
-                            <option value="Adidas">Adidas</option>
-                            <option value="New Balance">New Balance</option>
-                            <option value="Asics">Asics</option>
-                            <option value="Puma">Puma</option>
-                            <option value="Skechers">Skechers</option>
-                            <option value="Fila">Fila</option>
-                            <option value="Bata">Bata</option>
-                            <option value="Burberry">Burberry</option>
-                            <option value="Converse">Converse</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12">
-                <label for="gender" class="">{{ __('Gender') }}</label>
-                <div class="form-group">
-                    <div>
-                        <select name="gender" id="addproductgender" class="form-control">
-                            <option selected="true" value="" disabled hidden>Choose product brand</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Unisex">Unisex</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12">
-                <label for="category" class="">{{ __('Category') }}</label>
-                <div class="form-group">
-                    <div>
-                        <select name="category" id="addproductcategory" class="form-control">
-                            <option value="Shoes">Shoes</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12">
                 <div class="form-group">
                     <label for="image" class="">Product Image</label>
                     <input type="file" class="form-control" id="image" name="image">

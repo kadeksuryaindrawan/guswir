@@ -15,7 +15,7 @@
                         <div class="col-12 d-flex">
                             <div class="id" style="width:150px">Order ID: {{ $order->id }}</div>
                             <div class="name">Customer Name: {{ $order->name }}</div>
-                            <div class="status text-success ml-auto">PAID</div> 
+                            <div class="status text-success ml-auto">{{ $order->status }}</div> 
                         </div>
                     </div>
                 </a>

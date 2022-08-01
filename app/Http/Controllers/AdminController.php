@@ -53,6 +53,31 @@ class AdminController extends Controller
 
     public function order()
     {
+        $orders=Order::where('status','selesai')->orderBy('created_at','DESC')->get();
+        
+        return view('admin.order',compact('orders'));
+    }
+
+    public function orderAcc($id)
+    {
+        
+        $order = Order::findOrFail($id);
+
+        $order->status='selesai';
+        $order->save();
+        $orders=Order::where('status','selesai')->orderBy('created_at','DESC')->get();
+        return view('admin.order',compact('orders'));
+    }
+
+    public function orderBaru()
+    {
+        $orders=Order::where('status','sudah bayar')->orderBy('created_at','DESC')->get();
+        
+        return view('admin.order',compact('orders'));
+    }
+
+    public function laporan()
+    {
         $orders=Order::orderBy('created_at','DESC')->get();
         
         return view('admin.order',compact('orders'));
@@ -72,7 +97,7 @@ class AdminController extends Controller
 
     public function user()
     {
-        $users=DB::table('users')->leftjoin('profiles','users.id','=','profiles.user_id')->get();
+        $users=DB::table('users')->leftjoin('profiles','users.id','=','profiles.user_id')->where('users.role','Customer')->get();
         return view('admin.user',compact('users'));
     }
 
@@ -84,4 +109,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.index')->with('success','Successfully updated the reminder!');
     }
+
+
 }

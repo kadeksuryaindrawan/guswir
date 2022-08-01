@@ -88,7 +88,7 @@
                                     Dashboard
                                 </a>
                                 <a href="{{ route('admin.user') }}" class="list-group-item admin-navigation">
-                                        User
+                                        Customer
                                 </a>
                                 <a href="{{ route('admin.product') }}" class="list-group-item admin-navigation">
                                         Product
@@ -96,8 +96,14 @@
                                 <a href="{{ route('admin.stock') }}" class="list-group-item admin-navigation">
                                         Stock
                                 </a>
+                                <a href="{{ route('admin.orderBaru') }}" class="list-group-item admin-navigation">
+                                    Pesanan Baru
+                                </a>
                                 <a href="{{ route('admin.order') }}" class="list-group-item admin-navigation">
-                                        Order
+                                        Pesanan Selesai
+                                </a>
+                                <a href="{{ route('admin.laporan') }}" class="list-group-item admin-navigation">
+                                    Laporan
                                 </a>
                             </ul>
                         </div>

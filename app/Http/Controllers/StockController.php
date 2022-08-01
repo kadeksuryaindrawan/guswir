@@ -22,7 +22,7 @@ class StockController extends Controller
             $id = json_decode($request->get('id'));
             $stock = Stock:: where('product_id',$id);
            
-            $stock=$stock->orderBy('name', 'ASC')->get();
+            $stock=$stock->orderBy('product_id', 'ASC')->get();
             
 
             $total_row = $stock->count();
@@ -33,16 +33,12 @@ class StockController extends Controller
                 {
                     $output .='
                     <tr >
-
-                    <th scope="row">
-                        '.$stock->name.'
-                    </th>
                     <td>
                         '.$stock->quantity.'
                     </td>
                     <td>
                           <a href="/admin-stock/edit/'.$stock->id.'" class="btn btn-primary  m-1" style="color:white; width:100px;">EDIT</a>
-                          <a href="/admin-stock/remove/'.$stock->id.'" class="btn btn-danger  m-1" style="color:white; width:100px;">REMOVE</a>
+                    
                     </td>
 
                     </tr>
@@ -54,7 +50,7 @@ class StockController extends Controller
             {
                 $output='
                 <div class="col-lg-4 col-md-6 col-sm-6 pt-3">
-                    <h4>No Size Found</h4>
+                    <h4>Tidak Ada Stok</h4>
                 </div>
                 ';
             }
@@ -66,27 +62,7 @@ class StockController extends Controller
         }
     }
 
-    public function addform()
-    {
-        $products = Product::all();
-        return view('admin.addstock',compact('products'));
-    }
-
-    public function addstock()
-    {
-        $this->validate(request(),[
-            'size'=>'required|string',
-            'quantity'=>'required|integer',
-        ]);
-
-        $stock = new Stock();
-        $stock->product_id=request('product');
-        $stock->name=request('size');
-        $stock->quantity=request('quantity');
-        $stock->save();
-
-        return redirect()->route('admin.stock')->with('success','Successfully added the product!');
-    }
+    
 
     public function editform($id)
     {
@@ -97,23 +73,20 @@ class StockController extends Controller
     public function editstock(Request $request, $id)
     {
         $this->validate(request(),[
-            'size'=>'required|string',
             'quantity'=>'required|integer',
         ]);
 
         $stock=Stock::findOrFail($id);
-        $stock->name=request('size');
-        $stock->quantity=request('quantity');
-        $stock->save();
+        if(request('quantity') >= 0){
+            $stock->quantity=request('quantity');
+            $stock->save();
         
-        return redirect()->route('admin.stock')->with('success','Successfully edited the product!');
-    }
-
-    public function remove($id)
-    {
-        Stock::where('id','=',$id)->delete();
-
-        return redirect()->route('admin.stock')->with('success','Successfully removed the product!');
+            return redirect()->route('admin.stock')->with('success','Sukses edit stok!');
+        }
+        else{
+            return redirect()->route('admin.stock')->with('error','Stok tidak boleh kurang dari 0!');
+        }
+        
     }
 
 
