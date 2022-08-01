@@ -39,25 +39,24 @@
                     </div>
                 </div>
                 
-                <div class="form-group row">
-                    <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country:') }}</label>
-        
-                    <div class="col-md-6">
-                        <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') ?? $user->profile->country  }}" required autocomplete="country" autofocus>
-        
-                        @error('country')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
+                
                 
                 <div class="form-group row">
                     <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City:') }}</label>
         
                     <div class="col-md-6">
-                        <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') ?? $user->profile->city }}" required autocomplete="city" autofocus>
+                        <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
+                            <option value="">Select City</option>
+                            <option value="Denpasar">Denpasar</option>
+                            <option value="Badung">Badung</option>
+                            <option value="Bangli">Bangli</option>
+                            <option value="Buleleng">Buleleng</option>
+                            <option value="Gianyar">Gianyar</option>
+                            <option value="Jembrana">Jembrana</option>
+                            <option value="Karangasem">Karangasem</option>
+                            <option value="Klungkung">Klungkung</option>
+                            <option value="Tabanan">Tabanan</option>
+                        </select>
         
                         @error('city')
                             <span class="invalid-feedback" role="alert">
@@ -81,19 +80,7 @@
                     </div>
                 </div>
         
-                <div class="form-group row">
-                    <label for="zipcode" class="col-md-4 col-form-label text-md-right">{{ __('Zipcode:') }}</label>
-        
-                    <div class="col-md-6">
-                        <input id="zipcode" type="text" class="form-control @error('zipcode') is-invalid @enderror" name="zipcode" value="{{ old('zipcode') ?? $user->profile->zipcode }}" required autocomplete="zipcode" autofocus>
-        
-                        @error('zipcode')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
+                
         
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">

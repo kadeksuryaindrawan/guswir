@@ -23,9 +23,6 @@
                                     <div class="detail-1">
                                         <h5>{{ $item['item']['name'] }}</h5>
                                     </div>
-                                    <div class="detail-2">
-                                        <h6>Size: {{ $item['size'] }}</h6>
-                                    </div>
                                     <div class="detail-3">
                                         <h6>Quantity: {{ $item['quantity'] }}</h6>
                                     </div>
@@ -48,7 +45,7 @@
                         <div class="col-8">
                             <h6>: {{ $order['id'] }}</h6>
                             <h6>: {{ $order['created_at'] }}</h6>
-                            <h6>: Rp {{ $order->cart->totalPrice}}</h6>
+                            <h6>: Rp. {{ number_format( $order->cart->totalPrice,0,",",".") }}</h6>
                             <h6>: PAsxz1alfg45</h6>
                         </div>
                     </div>

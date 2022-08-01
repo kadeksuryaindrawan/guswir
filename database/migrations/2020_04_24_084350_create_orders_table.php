@@ -20,12 +20,9 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->text('cart');
             $table->string('phonenumber');
-            $table->string('country');
             $table->string('city');
             $table->text('address');
-            $table->integer('zipcode');
-            $table->integer('payment_id')->nullable();
-            
+            $table->string('status');
         });
     }
 

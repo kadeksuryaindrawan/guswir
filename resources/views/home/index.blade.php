@@ -31,29 +31,7 @@
     <!-- GET FIT FROM HOME [E]-->
 
     <!-- MEN & WOMEN [S]-->
-    <div class="row pt-4">
-      <div class="col-6 d-flex flex-column align-items-center genderwrapper">
-        <a href="{{ route('product.index') }}">
-          <button id="maleBtn">
-          <div class="gender">
-            <img class="d-block w-100" src="{{ asset('photo/model3.jpg') }}" alt="">
-            <h2 class="pt-2">MEN</h2>
-          </div>
-        </button>
-        </a>
-      </div>
-      <div class="col-6 d-flex flex-column align-items-center genderwrapper">
-        <a href="{{ route('product.index') }}">
-          <button id="femaleBtn">
-          <div class="gender">
-            <img class="d-block w-100" src="{{ asset('photo/model4.jpg') }}" alt="">
-            <h2 class="pt-2">WOMEN</h2>
-          </div>
-        </button>
-        </a>
-      </div>
-    </div>
-    <!-- MEN & WOMEN [E]-->
+    
 
         <!-- CATEGORY [S]-->
         {{-- <div class="row m-0 pt-4">
