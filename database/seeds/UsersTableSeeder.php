@@ -20,13 +20,6 @@ class UsersTableSeeder extends Seeder
                 'password'=>Hash::make('admin123'),
                 'role'=>'Admin'
             ],
-            [
-                'id'=>2,
-                'name'=>'Surya',
-                'email'=>'surya123@gmail.com',
-                'password'=>Hash::make('surya123'),
-                'role'=>'Customer'
-            ],
         ]);
     }
 }

@@ -16,17 +16,10 @@ class ProfilesTableSeeder extends Seeder
             [
                 'id'=>1,
                 'user_id'=>1,
-                'phonenumber'=>'011151552928',
+                'phonenumber'=>'0819329328',
                 'city'=>'Denpasar',
                 'address'=>'Sidakarya',
-            ],
-            [
-                'id'=>2,
-                'user_id'=>2,
-                'phonenumber'=>'08215551234',
-                'city'=>'Badung',
-                'address'=>'Jimbaran',
-            ],
+            ]
 
         ]);
     }

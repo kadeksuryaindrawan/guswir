@@ -25,6 +25,7 @@
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Stok</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -34,7 +35,8 @@
                     <th scope="row">{{ $product->id }}</th>
                     <td><img style="height:100px;" src="{{ asset('/storage/'.$product->image) }}" alt=""></td>
                     <td>{{ $product->name }}</td>
-                    <td>Rp.{{ number_format($product->price,0,",",".") }}</td>
+                    <td>Rp. {{ number_format($product->price,0,",",".") }}</td>
+                    <td>{{ $product->quantity }}</td>
                     <td>
                         <a href="{{ route('product.editform',['id'=>$product->id]) }}" class="btn btn-primary w-100 m-1" style="color:white;">EDIT</a>
                         <a href="{{ route('product.remove',['id'=>$product->id]) }}" class="btn btn-danger w-100 m-1" style="color:white;">REMOVE</a>

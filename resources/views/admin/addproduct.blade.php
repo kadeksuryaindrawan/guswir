@@ -39,6 +39,20 @@
             </div>
 
             <div class="col-12">
+                <label for="price" class="">{{ __('Stok') }}</label>
+                <div class="form-group">
+                    <div>
+                        <input id="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity')  }}" required autocomplete="quantity" autofocus>
+                        @error('quantity')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
                 <div class="form-group">
                     <label for="image" class="">Product Image</label>
                     <input type="file" class="form-control" id="image" name="image">
