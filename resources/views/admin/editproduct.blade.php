@@ -29,8 +29,22 @@
                 <label for="price" class="">{{ __('Price') }}</label>
                 <div class="form-group">
                     <div>
-                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') ?? $product->price  }}" required autocomplete="price" autofocus>
+                        <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') ?? $product->price  }}" required autocomplete="price" autofocus>
                         @error('price')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="quantity" class="">{{ __('Stok') }}</label>
+                <div class="form-group">
+                    <div>
+                        <input id="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') ?? $product->quantity  }}" required autocomplete="quantity" autofocus>
+                        @error('quantity')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

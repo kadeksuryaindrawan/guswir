@@ -8,7 +8,7 @@ use Auth;
 use App\Cart;
 use App\Order;
 use App\Profile;
-use App\Stock;
+use App\Product;
 use DB;
 
 class CheckoutController extends Controller
@@ -41,7 +41,7 @@ class CheckoutController extends Controller
         $cart = new Cart($oldCart);
 
         foreach ($cart->items as $order) {
-            Stock::where('product_id',$order['product_id'])
+            Product::where('id',$order['product_id'])
                     ->decrement('quantity');
         }
         

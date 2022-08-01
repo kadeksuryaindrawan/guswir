@@ -111,12 +111,8 @@ class ProductController extends Controller
         $product->name=request('name');
         $product->price=request('price');
         $product->image=$imagepath;
+        $product->quantity=request('quantity');
         $product->save();
-
-        $stock = new Stock();
-        $stock->product_id = $product->id;
-        $stock->quantity = 1;
-        $stock->save();
 
         // DB:: table('products')->insert($product);
         return redirect()->route('admin.product')->with('success','Successfully added the product!');
@@ -134,6 +130,7 @@ class ProductController extends Controller
             'image'=>'',
             'name'=>'required|string',
             'price'=>'required|integer',
+            'quantity'=>'required|integer',
         ]);
         if(request('image'))
         {
@@ -142,6 +139,7 @@ class ProductController extends Controller
             
             $product->name=request('name');
             $product->price=request('price');
+            $product->quantity=request('quantity');
             $product->image=$imagepath;
             $product->save();
         }
@@ -150,6 +148,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $product->name=request('name');
             $product->price=request('price');
+            $product->quantity=request('quantity');
             $product->save();
         }
         return redirect()->route('admin.product')->with('success','Successfully edited the product!');
