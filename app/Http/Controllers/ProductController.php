@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Product;
-use App\Stock;
 use App\Cart;
 use Illuminate\Http\Request;
 use DB;
@@ -83,12 +82,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {   
-        $sizes = Stock::where('product_id','=',$product->id)
-                     ->get([
-                            'quantity',
-                        ]);
 
-        return view('products.show', compact ('product','sizes'));
+        return view('products.show', compact ('product'));
     }
 
     public function form()
@@ -158,7 +153,6 @@ class ProductController extends Controller
     public function remove($id)
     {
         Product::where('id',$id)->delete();
-        Stock::where('product_id',$id)->delete();
 
         return redirect()->route('admin.product')->with('success','Successfully removed the product!');
     }
