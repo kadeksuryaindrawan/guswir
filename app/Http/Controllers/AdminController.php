@@ -6,6 +6,8 @@ use App\User;
 use App\Profile;
 use App\Reminder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserNotification;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -62,16 +64,52 @@ class AdminController extends Controller
     {
         
         $order = Order::findOrFail($id);
+        $email = $order->user->email;
+        $name = $order->user->name;
+        $status = 'Pesanan Berhasil';
+        $article = [
+            'name'=>$name,
+            'id' => $id,
+            'body' =>'
+    Pesanan kamu dengan orderID '.$id.' telah dikonfirmasi oleh Admin Toko Komang Martini.
 
+    Pesanan kamu telah selesai. Terima kasih sudah belanja di Toko Komang Martini.',
+        ];
         $order->status='selesai';
         $order->save();
+        Mail::to($email)->send(new UserNotification($article,$status));
         $orders=Order::where('status','selesai')->orderBy('created_at','DESC')->get();
+        return view('admin.order',compact('orders'));
+    }
+
+    public function orderDel($id)
+    {
+        
+        $order = Order::findOrFail($id);
+        $bukti_path = public_path().'/storage/'.$order->bukti_bayar;
+        unlink($bukti_path);
+        $email = $order->user->email;
+        $name = $order->user->name;
+        $status = 'Pesanan Gagal';
+        $article = [
+            'name'=>$name,
+            'id' => $id,
+            'body' =>'
+    Pesanan kamu dengan orderID '.$id.' telah ditolak oleh Admin Toko Komang Martini.
+
+    Pesanan kamu belum selesai. Silahkan upload ulang bukti pembayaran.',
+        ];
+        $order->status='belum bayar';
+        $order->bukti_bayar=NULL;
+        $order->save();
+        Mail::to($email)->send(new UserNotification($article,$status));
+        $orders=Order::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
         return view('admin.order',compact('orders'));
     }
 
     public function orderBaru()
     {
-        $orders=Order::where('status','sudah bayar')->orderBy('created_at','DESC')->get();
+        $orders=Order::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
         
         return view('admin.order',compact('orders'));
     }

@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::take(4)->orderBy('id','desc')->get();
+        $products = Product::take(4)->where('quantity','!=',0)->orderBy('id','desc')->get();
         return view('home.index',compact('products'));
         
     }

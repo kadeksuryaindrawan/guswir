@@ -15,7 +15,15 @@
                         <div class="col-12 d-flex">
                             <div class="id" style="width:150px">Order ID: {{ $order->id }}</div>
                             <div class="name">Customer Name: {{ $order->name }}</div>
-                            <div class="status text-success ml-auto">{{ $order->status }}</div> 
+                            @if ($order->status == 'belum bayar')
+                                <div class="status text-danger ml-auto">{{ $order->status }}</div> 
+                            @endif
+                            @if ($order->status == 'sudah bayar')
+                                <div class="status text-success ml-auto">{{ $order->status }}</div> 
+                            @endif
+                            @if ($order->status == 'selesai')
+                                <div class="status text-primary ml-auto">{{ $order->status }}</div> 
+                            @endif
                         </div>
                     </div>
                 </a>

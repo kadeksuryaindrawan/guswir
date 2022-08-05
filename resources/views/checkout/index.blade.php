@@ -70,7 +70,13 @@
                     </div>
 
                     <div class="col-12">
-                        <p>Ongkos Kirim : </p>
+                        <label for="ongkir" class="">{{ __('Ongkir') }}</label>
+                        <div class="form-group">
+                            <div>
+                                <select name="ongkir" id="ongkir" class="form-control" disabled>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-12">
@@ -110,5 +116,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#city').change(function(event){
+            var city = $('#city').val();
+            $('#ongkir').removeAttr('disabled');
+            $('#ongkir').empty();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: "{{ route('city') }}",
+                data: 'city='+city,
+                success: function(data){
+                    $('#ongkir').append(data);
+                }
+            });
+        });
+    });
+    
+</script>
 
 @endsection
