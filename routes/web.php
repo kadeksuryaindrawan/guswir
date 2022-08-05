@@ -25,6 +25,7 @@ Route::get('/order/{id}', 'AdminController@show_order')->name('admin.showorder')
 
 Route::get('/laporan', 'AdminController@laporan')->name('admin.laporan')->middleware(['auth','admin']);
 Route::get('/order-acc/{id}', 'AdminController@orderAcc')->name('order.acc')->middleware(['auth','admin']);
+Route::get('/order-del/{id}', 'AdminController@orderDel')->name('order.del')->middleware(['auth','admin']);
 
 Route::get('/user', 'AdminController@user')->name('admin.user')->middleware(['auth','admin']);
 
@@ -52,11 +53,19 @@ Route::get('/product/{product}','ProductController@show')->name('product.show');
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::get('/cart/add/{product}','CartController@add')->name('cart.add');
 Route::get('/cart/remove/{id}','CartController@remove')->name('cart.remove');
+Route::get('/cart/plus/{id}','CartController@plus')->name('cart.plus');
+Route::get('/cart/min/{id}','CartController@min')->name('cart.min');
 
 Route::get('/checkout','CheckoutController@index')->name('checkout.index')->middleware('auth');
 Route::post('/checkout','CheckoutController@checkout')->name('checkout')->middleware('auth');
+Route::post('/checkout/city','CheckoutController@city')->name('city')->middleware('auth');
 
 Route::get('/user/order','OrderController@show')->name('order.show')->middleware('auth');
+Route::get('/user/order/upload/{id}','OrderController@uploadBukti')->name('order.upload')->middleware('auth');
+Route::post('/user/order/upload/','OrderController@uploadBuktiProcess')->name('order.uploadProcess')->middleware('auth');
+
+Route::get('/user/order/ulasan/{id}','UlasanController@show')->name('ulasan.show')->middleware('auth');
+Route::post('/user/order/ulasan/','UlasanController@ulasan')->name('ulasan.ulasan')->middleware('auth');
 
 Route::get('/profile/{user}/edit','ProfileController@edit')->name('profile.edit')->middleware('auth');
 Route::patch('/profile/{user}','ProfileController@update')->name('profile.update')->middleware('auth');

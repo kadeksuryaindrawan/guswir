@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('phonenumber');
             $table->string('city');
             $table->text('address');
+            $table->double('ongkir');
+            $table->string('bukti_bayar');
             $table->string('status');
         });
     }

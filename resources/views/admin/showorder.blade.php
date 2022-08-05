@@ -16,7 +16,11 @@
                         Buyer ID<br>
                         Buyer Name <br>
                         Phone Number <br>
-                        Status
+                        Status <br><br><br>
+                        @if ($id->status != 'belum bayar')
+                            Bukti Bayar <br>
+                        @endif
+                        
         
                     </div>
                     <div class="col-7">
@@ -24,7 +28,11 @@
                         : {{ $id->user_id }} <br>
                         : {{ $id->name }} <br>
                         : {{ $id->phonenumber }} <br>
-                        : {{ $id->status }}
+                        : {{ $id->status }} <br>
+                        @if ($id->status != 'belum bayar')
+                            : <a class="example-image-link" href="{{ asset('/storage/'.$id->bukti_bayar) }}" data-lightbox="example-1"><img style="height:115px;" src="{{ asset('/storage/'.$id->bukti_bayar) }}" alt=""></a>
+                             <br>
+                        @endif
                     </div>
                 </div>
                 
@@ -53,7 +61,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-5">
-                            <a href="{{ route('order.acc',['id'=>$id->id]) }}"><button class="btn btn-success btn-sm">Selesaikan</button></a>
+                            <a href="{{ route('order.acc',['id'=>$id->id]) }}"><button class="btn btn-success btn-sm">Terima Pembayaran</button></a>
+                            <a href="{{ route('order.del',['id'=>$id->id]) }}"><button class="btn btn-danger btn-sm">Tolak Pembayaran</button></a>
                         </div>
                         
                     </div>
@@ -61,6 +70,7 @@
             @endif
             
            @endforeach
+
         </div>
         </div>
         <div class="card-body">
@@ -87,6 +97,10 @@
                         </div>
                     @endforeach
                 </div>                      
+            </div>
+            <div class="col-12">
+                <h5 class="h3">Ongkir : Rp. {{ number_format( $order->ongkir,0,",",".") }}</h5>
+                <h3 class="h3">Total Price : Rp. {{ number_format( ($order->cart->totalPrice + $order->ongkir),0,",",".") }}</h3>
             </div>
             @endforeach
         </div>

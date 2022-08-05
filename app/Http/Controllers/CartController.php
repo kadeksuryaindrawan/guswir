@@ -11,14 +11,22 @@ class CartController extends Controller
 {
     public function add(Request $request, $id)
     {
+        $this->validate(request(),[
+            'qty'=>'required|integer',
+        ]);
+        $qty = $request->qty;
+        if($qty>0 && $qty<=3){
+            $product = Product::find($id);
+            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = new Cart($oldCart);
+            $cart->add($product,$qty);
+            $request->session()->put('cart',$cart);
+            return redirect()->route('cart.index');
+        }
+        else{
+            return redirect()->back();
+        }
         
-        $product = Product::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->add($product,$product->id);
-        //dd($cart);
-        $request->session()->put('cart',$cart);
-        return redirect()->route('cart.index');
     }
 
     public function remove($id)

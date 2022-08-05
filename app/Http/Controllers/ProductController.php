@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::get();
+        $products = Product::where('quantity','!=',0)->get();
         $maxPrice = Product::select('price')->max('price');
         $minPrice = Product::select('price')->min('price');
         return view('products.index',compact(['maxPrice','minPrice','products']));
@@ -82,8 +82,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {   
-
-        return view('products.show', compact ('product'));
+        $ulasan = DB::table('ulasans')
+                     ->select(DB::raw('AVG(ulasan) as ulasan, product_id'))
+                     ->where('product_id', '=', $product->id)
+                     ->groupBy('product_id')
+                     ->first();
+        return view('products.show', compact ('product','ulasan'));
     }
 
     public function form()

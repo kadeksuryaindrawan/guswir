@@ -14,6 +14,7 @@
                 <div class="col-lg-8 col-sm-12 pt-2 pr-4 pl-4">
                     <div class="row">
                         @foreach ($products as $product)
+                        
                             <div class="col-12 d-flex p-2 justify-content-between cart-item">
                                 <div class="item-image">
                                     <img src="{{ asset('/storage/'.$product['item']['image']) }}" alt="">
@@ -28,7 +29,7 @@
                                     </div>
                                 </div>
 
-                                <div class="item-quantity">Rp. {{ number_format($product['price'],0,",",".") }}</div>
+                                <div class="item-quantity">Rp. {{ number_format(($product['price']),0,",",".") }}</div>
                             </div>
                         @endforeach
                     </div>
