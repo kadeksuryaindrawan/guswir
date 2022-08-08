@@ -21,6 +21,7 @@
     <link href="{{ asset('external-css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }} "></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.6.0.min.js') }} "></script>
 
 </head>
 <body>
