@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('city');
             $table->text('address');
             $table->double('ongkir');
-            $table->string('bukti_bayar');
+            $table->string('bukti_bayar')->nullable();
             $table->string('status');
         });
     }
