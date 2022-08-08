@@ -24,10 +24,16 @@ Route::get('/orderBaru', 'AdminController@orderBaru')->name('admin.orderBaru')->
 Route::get('/order/{id}', 'AdminController@show_order')->name('admin.showorder')->middleware(['auth','admin']);
 
 Route::get('/laporan', 'AdminController@laporan')->name('admin.laporan')->middleware(['auth','admin']);
+Route::post('/laporan/bulan', 'AdminController@laporanBulan')->name('laporan')->middleware(['auth','admin']);
+Route::get('/unduh-laporan/{bulan}', 'AdminController@laporanUnduh')->name('laporan.unduh')->middleware(['auth','admin']);
+
 Route::get('/order-acc/{id}', 'AdminController@orderAcc')->name('order.acc')->middleware(['auth','admin']);
 Route::get('/order-del/{id}', 'AdminController@orderDel')->name('order.del')->middleware(['auth','admin']);
 
 Route::get('/user', 'AdminController@user')->name('admin.user')->middleware(['auth','admin']);
+Route::get('/user/edit/{id}', 'AdminController@editUserform')->name('user.editform')->middleware(['auth','admin']);
+Route::patch('/user/edit/{id}', 'AdminController@editUser')->name('user.edit')->middleware(['auth','admin']);
+Route::get('/user/remove/{id}', 'AdminController@removeUser')->name('user.remove')->middleware(['auth','admin']);
 
 Route::get('/admin-product', 'ProductController@list')->name('admin.product')->middleware(['auth','admin']);
 Route::get('/admin-product/add', 'ProductController@form')->name('admin.addform')->middleware(['auth','admin']);

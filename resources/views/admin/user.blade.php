@@ -3,9 +3,18 @@
 @section ('content')
 
 <div class="col-12 col-md-12 col-sm-12 col-lg-10">
+  @if(Session::has('success'))
+  <div class="row">
+    <div class="col-12">
+      <div id="charge-message" class="alert alert-success">
+        {{ Session::get('success') }}
+      </div>
+    </div>
+  </div>
+  @endif
     <div class="card">
         <div class="card-header">
-            <h5>USER LIST</h5>
+            <h5>CUSTOMER LIST</h5>
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -30,8 +39,8 @@
                     <td>{{ $user->city }}</td>
                     <td>{{ $user->address }}</td>
                     <td>
-                      <a href=""><button class="btn btn-primary btn-sm">Edit</button></a>
-                      <a href=""><button class="btn btn-danger btn-sm">Delete</button></a>
+                      <a href="{{ route('user.editform',['id'=>$user->user_id]) }}"><button class="btn btn-primary btn-sm">Edit</button></a>
+                      <a href="{{ route('user.remove',['id'=>$user->user_id]) }}"><button class="btn btn-danger btn-sm">Delete</button></a>
                     </td>
                   </tr>
                 @endforeach

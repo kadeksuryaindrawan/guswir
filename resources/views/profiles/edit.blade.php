@@ -47,15 +47,26 @@
                     <div class="col-md-6">
                         <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
                             <option value="">Select City</option>
-                            <option value="Denpasar">Denpasar</option>
-                            <option value="Badung">Badung</option>
-                            <option value="Bangli">Bangli</option>
-                            <option value="Buleleng">Buleleng</option>
-                            <option value="Gianyar">Gianyar</option>
-                            <option value="Jembrana">Jembrana</option>
-                            <option value="Karangasem">Karangasem</option>
-                            <option value="Klungkung">Klungkung</option>
-                            <option value="Tabanan">Tabanan</option>
+                            @php
+                                $denpasar = ($user->profile->city == 'Denpasar') ? 'selected' : '';
+                                $badung = ($user->profile->city == 'Badung') ? 'selected' : '';
+                                $bangli = ($user->profile->city == 'Bangli') ? 'selected' : '';
+                                $buleleng = ($user->profile->city == 'Buleleng') ? 'selected' : '';
+                                $gianyar = ($user->profile->city == 'Gianyar') ? 'selected' : '';
+                                $jembrana = ($user->profile->city == 'Jembrana') ? 'selected' : '';
+                                $karangasem = ($user->profile->city == 'Karangasem') ? 'selected' : '';
+                                $klungkung = ($user->profile->city == 'Klungkung') ? 'selected' : '';
+                                $tabanan = ($user->profile->city == 'Tabanan') ? 'selected' : '';
+                            @endphp
+                            <option value="Denpasar" {{ $denpasar }}>Denpasar</option>
+                            <option value="Badung" {{ $badung }}>Badung</option>
+                            <option value="Bangli" {{ $bangli }}>Bangli</option>
+                            <option value="Buleleng" {{ $buleleng }}>Buleleng</option>
+                            <option value="Gianyar" {{ $gianyar }}>Gianyar</option>
+                            <option value="Jembrana" {{ $jembrana }}>Jembrana</option>
+                            <option value="Karangasem" {{ $karangasem }}>Karangasem</option>
+                            <option value="Klungkung" {{ $klungkung }}>Klungkung</option>
+                            <option value="Tabanan" {{ $tabanan }}>Tabanan</option>
                         </select>
         
                         @error('city')
@@ -70,7 +81,7 @@
                     <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address:') }}</label>
         
                     <div class="col-md-6">
-                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') ?? $user->profile->address }}" required autocomplete="address" autofocus>
+                        <textarea name="address" class="form-control" required>{{ old('address') ?? $user->profile->address }}</textarea>
         
                         @error('address')
                             <span class="invalid-feedback" role="alert">
