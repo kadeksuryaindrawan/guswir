@@ -18,14 +18,14 @@
         <div class="row m-0 p-0">
           <div class="col-4 promo-info h-100">
             <div class="infowrapper d-flex flex-column h-100 justify-content-center">
-              <h2>GET FIT FROM HOME</h2>
-              <h4>30% off all listed items!</h4>
-              <p>Sale ends 23rd June 2020</p>
+              <h2>LEBIH MUDAH</h2>
+              <h4>BELI KAIN ENDEK LEBIH MUDAH</h4>
+              <p>Di Toko Komang Martini Sekarang!</p>
               <a href="{{ route('product.index') }}" class="w-100 button">SHOP NOW</a>
             </div>   
           </div> 
         </div>
-        <img class="d-block w-100" src="{{ asset('photo/fitfromhome.jpg') }}" alt="">
+        <img class="d-block w-100" src="{{ asset('photo/background.jpg') }}" alt="">
       </div>
     </div>
     <!-- GET FIT FROM HOME [E]-->
@@ -84,23 +84,7 @@
     </div>
     <!-- FEATURED SHOES [E]-->
 
-    <!-- ADVANTAGE [S]-->
-    <h2 class="pt-4">OUR PROMISE'S</h2>
-    <div class="row m-0 pt-4">
-      <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center advantagewrapper">
-        <img class="" height="80px" src="{{ asset('photo/delivery2.svg') }}" alt="">
-          <h4>FREE SHIPPING</h4>
-      </div>
-      <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center advantagewrapper">
-        <img class="" height="80px" src="{{ asset('photo/guarantee.svg') }}" alt="">
-          <h4>PREMIUM AND ORIGINAL</h4>
-      </div>
-      <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center advantagewrapper">
-        <img class="" height="80px" src="{{ asset('photo/support.svg') }}" alt="">
-          <h4>24/7 CUSTOMER SUPPORT</h4>
-      </div>
-    </div>
-    <!-- ADVANTAGE [E]-->
+    
 
 </div>
 

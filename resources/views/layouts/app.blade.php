@@ -105,11 +105,11 @@
         <div class='container-fluid footer'>
             <div class='container p-0 pt-3'>
                 <div class='row'>
-                    <div class='col-md-4 col-sm-12 pt-3'>
+                    <div class='col-md-6 col-sm-12 pt-3'>
                         <h3>Contact Information</h3>
-                        <p>Endah Promenade <br> Bukit Jalil <br> +123456789 <br> customercare@therack.com</p>
+                        <p>Komang Martini <br> Jl. Puputan , Blok B, No. 3, Semarapura Kangin, Kec. Klungkung, Kabupaten Klungkung, Bali 80761 <br> 0881037238580 <br> endekmartini@gmail.com</p>
                     </div>
-                    <div class='col-md-4 col-sm-12 pt-3'>
+                    <div class='col-md-6 col-sm-12 pt-3'>
                         <h3>Follow Us On</h3>
                         <ul>
                             <li><a href='https://facebook.com/' target='_blank'>
@@ -120,26 +120,14 @@
                         </ul>
 
                     </div>
-                    <div class='col-md-4 col-sm-12 pt-3'>
-                        <h3>Newsletter</h3>
-                        <p>Sign up for our newsletter.</p>
-                        <div class='newsletter-form p-0'>
-                            <form action='{{ route('newsletter.add') }}' method='post' id='newsletter-validate-detail'>
-                                @csrf
-                                <input type='email' name='email' id='newsletter-footer' class=''
-                                    placeholder='Enter your email'>
-                                <button type='submit' id='signup-newsletter-footer' class='button'>SIGN UP</button>
-                            </form>
-                        </div>
-                    </div>
+                    
                     <div class='col-12 divider-footer p-0'>
                     </div>
-                    <div class='col-md-6 col-sm-12 copyright'>
-                        <p>Designed from scratch by Sherwin Variancia</p>
-                        <p>therack &copy; 2019. All Rights Reserved</p>
+                    <div class='col-md-12 col-sm-12 copyright'>
+                        <p>Copyright &copy; 2022. All Rights Reserved</p>
                     </div>
-                    <div class='col-md-6 col-sm-12 payment'> <img src="{{ asset('photo/cards.png') }}" alt=''>
-                    </div>
+                    {{-- <div class='col-md-6 col-sm-12 payment'> <img src="{{ asset('photo/cards.png') }}" alt=''>
+                    </div> --}}
                     <div class='col-12 p-0 mt-3'>
                     </div>
 
