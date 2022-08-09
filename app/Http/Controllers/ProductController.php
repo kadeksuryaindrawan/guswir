@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use App\Product;
 use App\Cart;
+use App\Ulasan;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -87,7 +88,8 @@ class ProductController extends Controller
                      ->where('product_id', '=', $product->id)
                      ->groupBy('product_id')
                      ->first();
-        return view('products.show', compact ('product','ulasan'));
+        $ulasans = Ulasan::where('product_id',$product->id)->get();
+        return view('products.show', compact ('product','ulasan','ulasans'));
     }
 
     public function form()

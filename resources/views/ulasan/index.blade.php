@@ -21,6 +21,27 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+
+                        <div class="form-group">
+                            <label for="image" class="">Product Image</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                            @error('image')
+        
+                            <div style="color:red; font-weight:bold; font-size:0.7rem;">{{ $message }}</div>
+        
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment" class="">{{ __('Comment') }}</label>
+                                <textarea name="comment" class="form-control" required></textarea>
+                
+                                @error('comment')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
                 <button type="submit" class="btn btn-success w-100">Submit</button>
             </form>
         </div>
