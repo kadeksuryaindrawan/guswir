@@ -42,6 +42,23 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <h3 class="h3 mt-5 mb-3">Ulasan Produk</h3>
+        </div>
+        @foreach ($ulasans as $item)
+        <div class="col-12">
+            <div class="col-4">
+                <a class="example-image-link" href="{{ asset('/storage/'.$item->image) }}" data-lightbox="example-1"><img src="{{ asset('/storage/'.$item->image) }}" alt="" width="75px"></a>
+            </div>
+            <div class="col-8">
+                <h6 class="mt-2">Rating : {{ $item->ulasan }} / 5</h6>
+                <h5>{{ $item->user->name }}</h5>
+                <p>{{ $item->comment }}</p>
+            </div>
+            <hr>
+        </div>
+        @endforeach
+        
    </div>
 </div>
 
