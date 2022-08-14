@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container sixtyvh">
-    <form method="POST" action="{{ route('profile.update',['user'])  }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('profile.update',['user'=>$user->id])  }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -29,7 +29,7 @@
                     <label for="phonenumber" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number:') }}</label>
         
                     <div class="col-md-6">
-                        <input id="phonenumber" type="text" class="form-control @error('phonenumber') is-invalid @enderror" name="phonenumber" value="{{ old('phonenumber') ?? $user->profile->phonenumber  }}" required autocomplete="phonenumber" autofocus>
+                        <input id="phonenumber" type="number" class="form-control @error('phonenumber') is-invalid @enderror" name="phonenumber" value="{{ old('phonenumber') ?? $user->phonenumber  }}" required autocomplete="phonenumber" autofocus>
         
                         @error('phonenumber')
                             <span class="invalid-feedback" role="alert">
@@ -48,15 +48,15 @@
                         <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
                             <option value="">Select City</option>
                             @php
-                                $denpasar = ($user->profile->city == 'Denpasar') ? 'selected' : '';
-                                $badung = ($user->profile->city == 'Badung') ? 'selected' : '';
-                                $bangli = ($user->profile->city == 'Bangli') ? 'selected' : '';
-                                $buleleng = ($user->profile->city == 'Buleleng') ? 'selected' : '';
-                                $gianyar = ($user->profile->city == 'Gianyar') ? 'selected' : '';
-                                $jembrana = ($user->profile->city == 'Jembrana') ? 'selected' : '';
-                                $karangasem = ($user->profile->city == 'Karangasem') ? 'selected' : '';
-                                $klungkung = ($user->profile->city == 'Klungkung') ? 'selected' : '';
-                                $tabanan = ($user->profile->city == 'Tabanan') ? 'selected' : '';
+                                $denpasar = ($user->city == 'Denpasar') ? 'selected' : '';
+                                $badung = ($user->city == 'Badung') ? 'selected' : '';
+                                $bangli = ($user->city == 'Bangli') ? 'selected' : '';
+                                $buleleng = ($user->city == 'Buleleng') ? 'selected' : '';
+                                $gianyar = ($user->city == 'Gianyar') ? 'selected' : '';
+                                $jembrana = ($user->city == 'Jembrana') ? 'selected' : '';
+                                $karangasem = ($user->city == 'Karangasem') ? 'selected' : '';
+                                $klungkung = ($user->city == 'Klungkung') ? 'selected' : '';
+                                $tabanan = ($user->city == 'Tabanan') ? 'selected' : '';
                             @endphp
                             <option value="Denpasar" {{ $denpasar }}>Denpasar</option>
                             <option value="Badung" {{ $badung }}>Badung</option>
@@ -81,7 +81,7 @@
                     <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address:') }}</label>
         
                     <div class="col-md-6">
-                        <textarea name="address" class="form-control" required>{{ old('address') ?? $user->profile->address }}</textarea>
+                        <textarea name="address" class="form-control" required>{{ old('address') ?? $user->address }}</textarea>
         
                         @error('address')
                             <span class="invalid-feedback" role="alert">

@@ -3,7 +3,7 @@
 @section ('content')
 
 
-    @if(!$orders->isEmpty())
+    @if(!$pembelians->isEmpty())
     <div class="container sixtyvh">
     <div class="row ml-2 mr-2">
         <div class="col-12">
@@ -19,10 +19,10 @@
             <h3>PURCHASE HISTORY</h3>
             <hr>
             <div class="row d-flex ">
-                @foreach($orders as $order)
+                @foreach($pembelians as $pembelian)
                 <div class="col-sm-12 col-md-8 col-lg-8 d-flex order-history mx-auto">
                     <div class="row">
-                        @foreach ($order->cart->items as $item)
+                        @foreach ($pembelian->cart->items as $item)
                             <div class="col-12 d-flex justify-content-between ">
                                 <div class="order-image">
                                     <img src="{{ asset('/storage/'.$item['item']['image']) }}" alt="">
@@ -38,9 +38,9 @@
                                     <div class="detail-4">
                                         <h6>Price: Rp. {{ number_format($item['price'],0,",",".") }}</h6>
                                     </div>
-                                    @if ($order->status == 'selesai')
+                                    @if ($pembelian->status == 'selesai')
                                     <div class="detail-4">
-                                        <a href="{{ Route('ulasan.show',['id'=>$item['product_id']]) }}"><button class="btn btn-success btn-sm">Beri Ulasan</button></a>
+                                        <a href="{{ Route('ulasan.show',['id'=>$item['produk_id']]) }}"><button class="btn btn-success btn-sm">Beri Ulasan</button></a>
                                     </div>
                                     @endif
                                     
@@ -52,7 +52,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 d-flex flex-column justify-content-center mx-auto order-info">
                     <div class="row d-flex   ">
                         <div class="col-4 ">
-                            <h6>Order ID</h6>
+                            <h6>ID</h6>
                             <h6>Date </h6>
                             <h6>Ongkir </h6>
                             <h6>Total Price</h6>
@@ -60,24 +60,24 @@
                             
                         </div>
                         <div class="col-8">
-                            <h6>: {{ $order['id'] }}</h6>
-                            <h6>: {{ $order['created_at'] }}</h6>
-                            <h6>: Rp. {{ number_format($order['ongkir'],0,",",".") }}</h6>
-                            <h6>: Rp. {{ number_format( ($order->cart->totalPrice + $order['ongkir']),0,",",".") }}</h6>
-                            @if ($order['status'] == 'belum bayar')
-                                <h6 class="text-danger">: {{ $order['status'] }}</h6>
+                            <h6>: {{ $pembelian['id'] }}</h6>
+                            <h6>: {{ $pembelian['created_at'] }}</h6>
+                            <h6>: Rp. {{ number_format($pembelian['ongkir'],0,",",".") }}</h6>
+                            <h6>: Rp. {{ number_format( ($pembelian->cart->totalPrice + $pembelian['ongkir']),0,",",".") }}</h6>
+                            @if ($pembelian['status'] == 'belum bayar')
+                                <h6 class="text-danger">: {{ $pembelian['status'] }}</h6>
                             @endif
-                            @if ($order['status'] == 'sudah bayar')
-                                <h6 class="text-success">: {{ $order['status'] }}</h6>
+                            @if ($pembelian['status'] == 'sudah bayar')
+                                <h6 class="text-success">: {{ $pembelian['status'] }}</h6>
                             @endif
-                            @if ($order['status'] == 'selesai')
-                                <h6 class="text-primary">: {{ $order['status'] }}</h6>
+                            @if ($pembelian['status'] == 'selesai')
+                                <h6 class="text-primary">: {{ $pembelian['status'] }}</h6>
                             @endif
                             
                         </div>
-                        @if ($order['status'] == 'belum bayar')
+                        @if ($pembelian['status'] == 'belum bayar')
                         <div class="col-12">
-                            <h6><a href="{{ Route('order.upload',['id'=>$order['id']]) }}"><button class="btn btn-primary btn-sm">Upload Bukti</button></a></h6>
+                            <h6><a href="{{ Route('pembelian.upload',['id'=>$pembelian['id']]) }}"><button class="btn btn-primary btn-sm">Upload Bukti</button></a></h6>
                         </div>
                         @endif
                         

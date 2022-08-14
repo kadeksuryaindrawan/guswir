@@ -7,8 +7,8 @@
         <div class="col-12">
             <form action="{{ Route('ulasan.ulasan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <h5 class="text-success">Beri Ulasan Pada Product {{ $product->name }}</h5><br> <br>
-                <input type="hidden" value="{{ $product->id }}" name="id">
+                <h5 class="text-success">Beri Ulasan Pada Produk {{ $produk->name }}</h5><br> <br>
+                <input type="hidden" value="{{ $produk->id }}" name="id">
                 
                     <div class="form-group">
                         <label for="ulasan" class="">Pilih Rating Ulasan</label>
@@ -23,7 +23,7 @@
                     </div>
 
                         <div class="form-group">
-                            <label for="image" class="">Product Image</label>
+                            <label for="image" class="">Gambar Ulasan</label>
                             <input type="file" class="form-control" id="image" name="image" required>
                             @error('image')
         

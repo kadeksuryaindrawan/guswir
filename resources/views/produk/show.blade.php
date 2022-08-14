@@ -5,10 +5,10 @@
 <div class="container p-0 show">
    <div class="row sixtyvh">
        <div class="col-lg-8 col-sm-12 mb-3 show-picture">
-            <img src="{{ asset('/storage/'.$product->image) }}" alt="">
+            <img src="{{ asset('/storage/'.$produk->image) }}" alt="">
        </div>
        <div class="col-lg-4 col-sm-12 pl-5 pr-5">
-        <h5>{{ $product->name }}</h5>
+        <h5>{{ $produk->name }}</h5>
         @if ($ulasan != NULL)
         <h6>Rating : {{ round($ulasan->ulasan,1) }} / 5</h6>
         @endif
@@ -23,16 +23,16 @@
                             <h6>BUY NEW</h6>
                         </div>
                         <div class="info-3">
-                            <p>This product is pre-verified, and will be ready to ship instantly. Expedited shipping options will be available in checkout.
+                            <p>This produk is pre-verified, and will be ready to ship instantly. Expedited shipping options will be available in checkout.
                             </p>
                         </div>
-                        <form action="{{ route('cart.add',['product'=>$product->id]) }}" method="GET">
+                        <form action="{{ route('cart.add',['produk'=>$produk->id]) }}" method="GET">
                             @csrf
                             <label for="qty">Jumlah :</label>
                             <input type="number" class="form-control" name="qty" id="qty" value="1">
                             <button type="submit" class="btn btn-primary w-100 mt-3">ADD TO CART</button>
                         </form>
-                        {{-- <a href="{{ route('cart.add',['product'=>$product->id]) }}" id="add-to-cart" class="add-to-cart">
+                        {{-- <a href="{{ route('cart.add',['produk'=>$produk->id]) }}" id="add-to-cart" class="add-to-cart">
                             
                             <div class="info-4">
                                 ADD TO CART

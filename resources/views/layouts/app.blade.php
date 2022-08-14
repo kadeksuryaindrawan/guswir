@@ -54,7 +54,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('product.index') }}">{{ __('Products') }}</a>
+                            <a class="nav-link" href="{{ route('produk.index') }}">{{ __('Products') }}</a>
                         </li>
                         @guest
                             <li class="nav-item">
@@ -75,7 +75,7 @@
                                     <a href="{{ route('profile.edit',['user'=>Auth::user()->id ]) }}" class="dropdown-item">Edit Profile</a>
                                     
                                     @if(Auth::user()->role == 'Customer')
-                                    <a href="{{ route('order.show',['user'=>Auth::user()->id]) }}" class="dropdown-item">Purchase History</a>
+                                    <a href="{{ route('pembelian.show',['user'=>Auth::user()->id]) }}" class="dropdown-item">Purchase History</a>
                                     @endif
                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -158,7 +158,7 @@
             var gender =JSON.stringify(get_filter('gender')); 
             var brand =JSON.stringify(get_filter('brand'));
             $.ajax({
-                url:"{{ route('product.filter') }}",
+                url:"{{ route('produk.filter') }}",
                 method:'GET',
                 data:{
                     query:search,
@@ -169,7 +169,7 @@
                 dataType:'json',
                 success:function(data)
                 {
-                    $('#products').html(data.table_data);
+                    $('#produks').html(data.table_data);
                 }
             })
         }

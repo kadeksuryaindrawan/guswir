@@ -21,7 +21,7 @@
               <h2>LEBIH MUDAH</h2>
               <h4>BELI KAIN ENDEK LEBIH MUDAH</h4>
               <p>Di Toko Komang Martini Sekarang!</p>
-              <a href="{{ route('product.index') }}" class="w-100 button">SHOP NOW</a>
+              <a href="{{ route('produk.index') }}" class="w-100 button">SHOP NOW</a>
             </div>   
           </div> 
         </div>
@@ -36,7 +36,7 @@
         <!-- CATEGORY [S]-->
         {{-- <div class="row m-0 pt-4">
           <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center categorywrapper">
-            <a href="{{ route('product.index') }}">
+            <a href="{{ route('produk.index') }}">
               <div class="category">
                 <img class="" height="200px" src="{{ asset('photo/shoes.png') }}" alt="">
                 <h5 class="pt-2">SHOES</h5>
@@ -65,16 +65,16 @@
     <!-- FEATURED SHOES [S]-->
     <h2 class="pt-4">LATEST PRODUCTS</h2>
     <div class="row d-flex justify-content-center">
-      @foreach ($products as $product)    
+      @foreach ($produks as $produk)    
       <div class="col-lg-3 col-md-6 col-sm-6 col-6 pt-3">
         <div class="card">
-          <a href="{{ route('product.show',['product'=>$product->id]) }}">
+          <a href="{{ route('produk.show',['produk'=>$produk->id]) }}">
             <div class="card-body ">
               <div class="product-info">
-                <div class="info-1"><img src="{{ asset('/storage/'.$product->image) }}" alt=""></div>
-                <div class="info-4"><h5>{{ $product->brand }}</h5></div>
-                <div class="info-2"><a href="product/{{ $product->id }}"><h4>{{ $product->name }}</h4></a></div>
-                <div class="info-3"><h5>Rp. {{ number_format($product->price,0,",",".") }}</h5></div>
+                <div class="info-1"><img src="{{ asset('/storage/'.$produk->image) }}" alt=""></div>
+                <div class="info-4"><h5>{{ $produk->brand }}</h5></div>
+                <div class="info-2"><a href="produk/{{ $produk->id }}"><h4>{{ $produk->name }}</h4></a></div>
+                <div class="info-3"><h5>Rp. {{ number_format($produk->price,0,",",".") }}</h5></div>
               </div>
             </div>
           </a>

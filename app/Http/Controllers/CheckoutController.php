@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use Session;
 use Auth;
 use App\Cart;
-use App\Order;
-use App\Profile;
-use App\Product;
+use App\Pembelian;
+use App\Produk;
 use DB;
 
 class CheckoutController extends Controller
@@ -41,32 +40,27 @@ class CheckoutController extends Controller
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
 
-        foreach ($cart->items as $order) {
-            $product = Product::where('id',$order['product_id'])->first();
-            $product->quantity = $product->quantity - $order['quantity'];
-            $product->save();
+        foreach ($cart->items as $pembelian) {
+            $produk = Produk::where('id',$pembelian['produk_id'])->first();
+            $produk->quantity = $produk->quantity - $pembelian['quantity'];
+            $produk->save();
         }
         
 
-        $order = new Order();
-        $order->cart = serialize($cart); 
-        $order->address = $request->input('address');
-        $order->name = $request->input('name');
-        $order->phonenumber = $request->input('phonenumber');
-        $order->status = 'belum bayar';
-        $order->ongkir = $request->input('ongkir');
-        $order->bukti_bayar = NULL;
-        $order->city = $request->input('city');
-
-        $profile = new Profile();
-        $profile->address = $request->input('address');
-        $profile->phonenumber = $request->input('phonenumber');
-        $profile->city = $request->input('city');
+        $pembelian = new Pembelian();
+        $pembelian->cart = serialize($cart); 
+        $pembelian->address = $request->input('address');
+        $pembelian->name = $request->input('name');
+        $pembelian->phonenumber = $request->input('phonenumber');
+        $pembelian->status = 'belum bayar';
+        $pembelian->ongkir = $request->input('ongkir');
+        $pembelian->bukti_bayar = NULL;
+        $pembelian->city = $request->input('city');
         
-        Auth::user()->orders()->save($order);
+        Auth::user()->pembelians()->save($pembelian);
 
         Session::forget('cart');
-        return redirect()->route('home.index')->with('success','Successfully purchased the products!');
+        return redirect()->route('home.index')->with('success','Successfully purchased the produks!');
     }
 
     public function city(Request $request)

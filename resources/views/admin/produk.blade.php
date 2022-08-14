@@ -14,10 +14,10 @@
   @endif
     <div class="card">
         <div class="card-header">
-            <h5>PRODUCT LIST</h5>
+            <h5>PRODUCTS LIST</h5>
         </div>
         <div class="card-body">
-            <a href="{{ route('admin.addform') }}" class="btn btn-success mb-4" style="color:white; width:150px;">ADD PRODUCT</a>
+            <a href="{{ route('admin.addform') }}" class="btn btn-success mb-4" style="color:white; width:150px;">ADD PRODUK</a>
             <table class="table table-striped">
                 <thead>
                   <tr>
@@ -30,16 +30,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($products as $product)
+                @foreach ($produks as $produk)
                   <tr>
-                    <th scope="row">{{ $product->id }}</th>
-                    <td><img style="height:100px;" src="{{ asset('/storage/'.$product->image) }}" alt=""></td>
-                    <td>{{ $product->name }}</td>
-                    <td>Rp. {{ number_format($product->price,0,",",".") }}</td>
-                    <td>{{ $product->quantity }}</td>
+                    <th scope="row">{{ $produk->id }}</th>
+                    <td><img style="height:100px;" src="{{ asset('/storage/'.$produk->image) }}" alt=""></td>
+                    <td>{{ $produk->name }}</td>
+                    <td>Rp. {{ number_format($produk->price,0,",",".") }}</td>
+                    <td>{{ $produk->quantity }}</td>
                     <td>
-                        <a href="{{ route('product.editform',['id'=>$product->id]) }}" class="btn btn-primary w-100 m-1" style="color:white;">EDIT</a>
-                        <a href="{{ route('product.remove',['id'=>$product->id]) }}" class="btn btn-danger w-100 m-1" style="color:white;">REMOVE</a>
+                        <a href="{{ route('produk.editform',['id'=>$produk->id]) }}" class="btn btn-primary w-100 m-1" style="color:white;">EDIT</a>
+                        <a href="{{ route('produk.remove',['id'=>$produk->id]) }}" class="btn btn-danger w-100 m-1" style="color:white;">REMOVE</a>
                     </td>
                   </tr>
                 @endforeach

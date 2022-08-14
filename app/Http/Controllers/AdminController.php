@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use PDF;
 use App\User;
-use App\Order;
-use App\Profile;
-use App\Reminder;
+use App\Pembelian;
 use Illuminate\Http\Request;
 use App\Mail\UserNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use PDF;
 
 class AdminController extends Controller
 {
@@ -20,28 +18,14 @@ class AdminController extends Controller
         $users = User::where('role','Customer')->get();
         $totaluser = count($users);
 
-        $orders = Order::get();
-        $totalorder = count($orders);
+        $pembelians = Pembelian::get();
+        $totalpembelian = count($pembelians);
      
         
-        
-        if(Reminder::find(1)==null)
-        {
-            $reminder=new Reminder();
-            $reminder->id = 1;
-            $reminder->reminder="Type something";
-            $reminder->save();
-            $reminder = Reminder::find(1);
-        }
-        else
-        {
-            $reminder = Reminder::find(1);
-        }
-        
-        $gross = Order::where('status','selesai')->get();
-        $gross->transform(function($order,$key){
-            $order->cart = unserialize($order->cart);
-            return $order;
+        $gross = Pembelian::where('status','selesai')->get();
+        $gross->transform(function($pembelian,$key){
+            $pembelian->cart = unserialize($pembelian->cart);
+            return $pembelian;
         });
 
         foreach ($gross as $x){
@@ -49,70 +33,70 @@ class AdminController extends Controller
         }
 
 
-        $latest=Order::orderBy('created_at','DESC')->take(5)->get();
+        $latest=Pembelian::orderBy('created_at','DESC')->take(5)->get();
         
-        return view('admin.index',compact('latest','totaluser','totalorder','totalgross','reminder'));
+        return view('admin.index',compact('latest','totaluser','totalpembelian','totalgross'));
     }
 
-    public function order()
+    public function pembelian()
     {
-        $orders=Order::where('status','selesai')->orderBy('created_at','DESC')->get();
+        $pembelians=Pembelian::where('status','selesai')->orderBy('created_at','DESC')->get();
         
-        return view('admin.order',compact('orders'));
+        return view('admin.pembelian',compact('pembelians'));
     }
 
-    public function orderAcc($id)
+    public function pembelianAcc($id)
     {
         
-        $order = Order::findOrFail($id);
-        $email = $order->user->email;
-        $name = $order->user->name;
+        $pembelian = Pembelian::findOrFail($id);
+        $email = $pembelian->user->email;
+        $name = $pembelian->user->name;
         $status = 'Pesanan Berhasil';
         $article = [
             'name'=>$name,
             'id' => $id,
             'body' =>'
-    Pesanan kamu dengan orderID '.$id.' telah dikonfirmasi oleh Admin Toko Komang Martini.
+    Pesanan kamu dengan pembelianID '.$id.' telah dikonfirmasi oleh Admin Toko Komang Martini.
 
     Pesanan kamu telah selesai. Terima kasih sudah belanja di Toko Komang Martini.',
         ];
-        $order->status='selesai';
-        $order->save();
+        $pembelian->status='selesai';
+        $pembelian->save();
         Mail::to($email)->send(new UserNotification($article,$status));
-        $orders=Order::where('status','selesai')->orderBy('created_at','DESC')->get();
-        return view('admin.order',compact('orders'));
+        $pembelians=Pembelian::where('status','selesai')->orderBy('created_at','DESC')->get();
+        return view('admin.pembelian',compact('pembelians'));
     }
 
-    public function orderDel($id)
+    public function pembelianDel($id)
     {
         
-        $order = Order::findOrFail($id);
-        $bukti_path = public_path().'/storage/'.$order->bukti_bayar;
+        $pembelian = Pembelian::findOrFail($id);
+        $bukti_path = public_path().'/storage/'.$pembelian->bukti_bayar;
         unlink($bukti_path);
-        $email = $order->user->email;
-        $name = $order->user->name;
+        $email = $pembelian->user->email;
+        $name = $pembelian->user->name;
         $status = 'Pesanan Gagal';
         $article = [
             'name'=>$name,
             'id' => $id,
             'body' =>'
-    Pesanan kamu dengan orderID '.$id.' telah ditolak oleh Admin Toko Komang Martini.
+    Pesanan kamu dengan pembelianID '.$id.' telah ditolak oleh Admin Toko Komang Martini.
 
     Pesanan kamu belum selesai. Silahkan upload ulang bukti pembayaran.',
         ];
-        $order->status='belum bayar';
-        $order->bukti_bayar=NULL;
-        $order->save();
+        $pembelian->status='belum bayar';
+        $pembelian->bukti_bayar=NULL;
+        $pembelian->save();
         Mail::to($email)->send(new UserNotification($article,$status));
-        $orders=Order::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
-        return view('admin.order',compact('orders'));
+        $pembelians=Pembelian::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
+        return view('admin.pembelian',compact('pembelians'));
     }
 
-    public function orderBaru()
+    public function pembelianBaru()
     {
-        $orders=Order::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
+        $pembelians=Pembelian::where('status','sudah bayar')->orWhere('status','belum bayar')->orderBy('created_at','DESC')->get();
         
-        return view('admin.order',compact('orders'));
+        return view('admin.pembelian',compact('pembelians'));
     }
 
     public function laporan()
@@ -125,19 +109,19 @@ class AdminController extends Controller
         $bulan = $request->bulan;
 
         if($bulan == '01'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'01']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -145,19 +129,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '02'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'02']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -165,19 +149,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '03'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'03']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -185,19 +169,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '04'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'04']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -205,19 +189,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '05'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'05']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -225,19 +209,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '06'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'06']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -245,19 +229,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '07'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'07']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -265,19 +249,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '08'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'08']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -285,19 +269,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '09'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'09']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -305,19 +289,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '10'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'10']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -325,19 +309,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '11'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'11']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -345,19 +329,19 @@ class AdminController extends Controller
             };
         }
         if($bulan == '12'){
-            $orders = Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
             ?>
                 <a href="<?= route('laporan.unduh',['bulan'=>'12']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
             <?php
-            foreach ($orders as $order){
+            foreach ($pembelians as $pembelian){
                 ?>
-                    <a href="<?=route('admin.showorder',['id'=>$order->id])?>" class="list-group-item latest-order">
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
                         <div class="row">
                             <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">Order ID: <?= $order->id ?></div>
-                                <div class="id" style="width:350px">Tanggal Order: <?= date("d-M-Y",strtotime($order->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$order->name?></div>
-                                <div class="status text-primary ml-auto"><?=$order->status?></div> 
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
                             </div>
                         </div>
                     </a>
@@ -405,37 +389,37 @@ class AdminController extends Controller
             $month = 'Desember';
         }
 
-        $orders =Order::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-        $orders->transform(function($orders,$key){
-            $orders->cart = unserialize($orders->cart);
-            return $orders;
+        $pembelians =Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+        $pembelians->transform(function($pembelians,$key){
+            $pembelians->cart = unserialize($pembelians->cart);
+            return $pembelians;
         });
 
-        $pdf = PDF::loadview('admin.laporanpdf',compact('orders','month'))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('admin.laporanpdf',compact('pembelians','month'))->setPaper('a4', 'landscape');
     	return $pdf->download(date('dmyHi').'-'.strtoupper(str_replace(' ','_','laporan-bulan-'.$bulan)).'.pdf');
     }
 
-    public function show_order($id)
+    public function show_pembelian($id)
     {
-        $ids =DB::table('orders')->where('id',$id)->get();
+        $ids =DB::table('pembelians')->where('id',$id)->get();
 
-        $order =DB::table('orders')->where('id',$id)->get();
-        $order->transform(function($order,$key){
-            $order->cart = unserialize($order->cart);
-            return $order;
+        $pembelian =DB::table('pembelians')->where('id',$id)->get();
+        $pembelian->transform(function($pembelian,$key){
+            $pembelian->cart = unserialize($pembelian->cart);
+            return $pembelian;
         });
-        return view('admin.showorder',compact('order','ids'));
+        return view('admin.showpembelian',compact('pembelian','ids'));
     }
 
     public function user()
     {
-        $users=DB::table('users')->leftjoin('profiles','users.id','=','profiles.user_id')->where('users.role','Customer')->get();
+        $users=DB::table('users')->where('role','Customer')->get();
         return view('admin.user',compact('users'));
     }
 
     public function editUserform($id)
     {
-        $user = DB::table('users')->leftjoin('profiles','users.id','=','profiles.user_id')->where('users.id',$id)->where('profiles.user_id',$id)->first();
+        $user = DB::table('users')->where('id',$id)->first();
         return view('admin.edituser',compact('user'));
     }
 
@@ -452,13 +436,10 @@ class AdminController extends Controller
             $user = User::findOrFail($id);
             $user->name=request('name');
             $user->email=request('email');
+            $user->phonenumber=request('phonenumber');
+            $user->city=request('city');
+            $user->address=request('address');
             $user->save();
-
-            $profile = Profile::where('user_id',$id)->first();
-            $profile->phonenumber=request('phonenumber');
-            $profile->city=request('city');
-            $profile->address=request('address');
-            $profile->save();
         return redirect()->route('admin.user')->with('success','Successfully edited the customer!');
         
     }
@@ -466,18 +447,8 @@ class AdminController extends Controller
     public function removeUser($id)
     {
         User::where('id',$id)->delete();
-        Profile::where('user_id',$id)->delete();
 
         return redirect()->route('admin.user')->with('success','Successfully removed the customer!');
-    }
-
-    public function updatereminder()
-    {
-        $reminder= Reminder::find(1);
-        $reminder->reminder = request('reminder');
-        $reminder->save();
-
-        return redirect()->route('admin.index')->with('success','Successfully updated the reminder!');
     }
 
 
