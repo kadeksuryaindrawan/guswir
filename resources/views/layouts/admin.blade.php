@@ -57,7 +57,7 @@
                                 <a href="{{ route('profile.edit',['user'=>Auth::user()->id ]) }}" class="dropdown-item">Edit Profile</a>
                                 
                                 @if(Auth::user()->role == 'Customer')
-                                <a href="{{ route('order.show',['user'=>Auth::user()->id]) }}" class="dropdown-item">Purchase History</a>
+                                <a href="{{ route('pembelian.show',['user'=>Auth::user()->id]) }}" class="dropdown-item">Purchase History</a>
                                 @endif
                                 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -93,13 +93,13 @@
                                 <a href="{{ route('admin.user') }}" class="list-group-item admin-navigation">
                                         Customer
                                 </a>
-                                <a href="{{ route('admin.product') }}" class="list-group-item admin-navigation">
+                                <a href="{{ route('admin.produk') }}" class="list-group-item admin-navigation">
                                         Product
                                 </a>
-                                <a href="{{ route('admin.orderBaru') }}" class="list-group-item admin-navigation">
+                                <a href="{{ route('admin.pembelianBaru') }}" class="list-group-item admin-navigation">
                                     Pesanan Baru
                                 </a>
-                                <a href="{{ route('admin.order') }}" class="list-group-item admin-navigation">
+                                <a href="{{ route('admin.pembelian') }}" class="list-group-item admin-navigation">
                                         Pesanan Selesai
                                 </a>
                                 <a href="{{ route('admin.laporan') }}" class="list-group-item admin-navigation">

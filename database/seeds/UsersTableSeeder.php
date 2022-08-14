@@ -18,7 +18,10 @@ class UsersTableSeeder extends Seeder
                 'name'=>'Admin',
                 'email'=>'admin@gmail.com',
                 'password'=>Hash::make('admin123'),
-                'role'=>'Admin'
+                'role'=>'Admin',
+                'phonenumber'=>'0819329328',
+                'city'=>'Denpasar',
+                'address'=>'Sidakarya',
             ],
         ]);
     }

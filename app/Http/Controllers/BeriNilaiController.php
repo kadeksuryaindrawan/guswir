@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Ulasan;
+use App\BeriNilai;
 use Illuminate\Http\Request;
-use App\Product;
+use App\produk;
 
-class UlasanController extends Controller
+class BeriNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class UlasanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $product = Product::where('id',$id)->first();
-        return view('ulasan.index',compact(['product']));
+        $produk = Produk::where('id',$id)->first();
+        return view('berinilai.index',compact(['produk']));
     }
 
     public function ulasan(Request $request){
@@ -26,17 +26,17 @@ class UlasanController extends Controller
             'comment'=>'required',
         ]);
 
-        $product_id = $request->id;
+        $produk_id = $request->id;
         $imagepath = $request->image->store('ulasan','public');
 
-        $ulasan = new Ulasan();
-        $ulasan->product_id = $product_id; 
+        $ulasan = new BeriNilai();
+        $ulasan->produk_id = $produk_id; 
         $ulasan->ulasan = $request->input('ulasan');
         $ulasan->image=$imagepath;
         $ulasan->comment = $request->input('comment');
-        Auth::user()->ulasan()->save($ulasan);
+        Auth::user()->berinilai()->save($ulasan);
 
-        return redirect()->route('order.show')->with('success','Sukses memberi ulasan!');
+        return redirect()->route('pembelian.show')->with('success','Sukses memberi ulasan!');
     }
 
     /**

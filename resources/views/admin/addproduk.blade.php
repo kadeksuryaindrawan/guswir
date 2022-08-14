@@ -3,10 +3,10 @@
 @section ('content')
 
 <div class="col-12 col-md-12 col-sm-12 col-lg-10">
-    <h5>ADD PRODUCT</h5>
+    <h5>ADD PRODUCTS</h5>
     <hr>
 
-    <form method="POST" action="{{ route('product.create') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('produk.create') }}" enctype="multipart/form-data">
         @csrf
         <div class="row ">
 
@@ -54,7 +54,7 @@
 
             <div class="col-12">
                 <div class="form-group">
-                    <label for="image" class="">Product Image</label>
+                    <label for="image" class="">Produk Image</label>
                     <input type="file" class="form-control" id="image" name="image">
                     @error('image')
 
@@ -68,7 +68,7 @@
 
         </div>
         
-        <button type="submit" class="btn btn-success w-100">ADD PRODUCT</button>
+        <button type="submit" class="btn btn-success w-100">ADD PRODUK</button>
     
     </form>
 

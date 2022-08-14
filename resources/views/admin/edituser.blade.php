@@ -6,7 +6,7 @@
     <h5>EDIT CUSTOMER</h5>
     <hr>
 
-    <form method="POST" action="{{ route('user.edit',['id'=>$user->user_id]) }}">
+    <form method="POST" action="{{ route('user.edit',['id'=>$user->id]) }}">
         @csrf
         @method('PATCH')
         <div class="row ">

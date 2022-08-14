@@ -8,11 +8,11 @@
             <div class="row">
             @foreach ($ids as $id)
             <div class="col-12 col-lg-6 col-md-6 col-sm-12 pt-2">
-                <h5>ORDER DETAILS</h5>
+                <h5>PEMBELIAN DETAILS</h5>
                 <hr>
                 <div class="row">
                     <div class="col-5">
-                        Order ID<br>
+                        PEMBELIAN ID<br>
                         Buyer ID<br>
                         Buyer Name <br>
                         Phone Number <br>
@@ -61,8 +61,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-5">
-                            <a href="{{ route('order.acc',['id'=>$id->id]) }}"><button class="btn btn-success btn-sm">Terima Pembayaran</button></a>
-                            <a href="{{ route('order.del',['id'=>$id->id]) }}"><button class="btn btn-danger btn-sm">Tolak Pembayaran</button></a>
+                            <a href="{{ route('pembelian.acc',['id'=>$id->id]) }}"><button class="btn btn-success btn-sm">Terima Pembayaran</button></a>
+                            <a href="{{ route('pembelian.del',['id'=>$id->id]) }}"><button class="btn btn-danger btn-sm">Tolak Pembayaran</button></a>
                         </div>
                         
                     </div>
@@ -74,10 +74,10 @@
         </div>
         </div>
         <div class="card-body">
-            @foreach($order as $order)
+            @foreach($pembelian as $pembelian)
             <div class="col-sm-12 col-md-12 col-lg-12 d-flex order-history mx-auto">
                 <div class="row">
-                    @foreach ($order->cart->items as $item)
+                    @foreach ($pembelian->cart->items as $item)
                         <div class="col-12 d-flex justify-content-between ">
                             <div class="order-image">
                                 <img src="{{ asset('/storage/'.$item['item']['image']) }}" alt="">
@@ -99,8 +99,8 @@
                 </div>                      
             </div>
             <div class="col-12">
-                <h5 class="h3">Ongkir : Rp. {{ number_format( $order->ongkir,0,",",".") }}</h5>
-                <h3 class="h3">Total Price : Rp. {{ number_format( ($order->cart->totalPrice + $order->ongkir),0,",",".") }}</h3>
+                <h5 class="h3">Ongkir : Rp. {{ number_format( $pembelian->ongkir,0,",",".") }}</h5>
+                <h3 class="h3">Total Price : Rp. {{ number_format( ($pembelian->cart->totalPrice + $pembelian->ongkir),0,",",".") }}</h3>
             </div>
             @endforeach
         </div>

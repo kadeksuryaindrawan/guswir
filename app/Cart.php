@@ -17,7 +17,7 @@ class Cart
     }
 
     public function add($item, $qty){
-        $storedItem = ['quantity'=>$qty,'price'=>$item->price*$qty,'item'=>$item,'product_id'=>$item->id];
+        $storedItem = ['quantity'=>$qty,'price'=>$item->price*$qty,'item'=>$item,'produk_id'=>$item->id];
 
         for ($x=0; $x<=count($this->items);$x++){
             if(!array_key_exists($x, $this->items)){

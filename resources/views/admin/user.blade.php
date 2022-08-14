@@ -32,15 +32,15 @@
                 <tbody>
                 @foreach ($users as $user)
                   <tr>
-                    <th scope="row">{{ $user->user_id }}</th>
+                    <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phonenumber }}</td>
                     <td>{{ $user->city }}</td>
                     <td>{{ $user->address }}</td>
                     <td>
-                      <a href="{{ route('user.editform',['id'=>$user->user_id]) }}"><button class="btn btn-primary btn-sm">Edit</button></a>
-                      <a href="{{ route('user.remove',['id'=>$user->user_id]) }}"><button class="btn btn-danger btn-sm">Delete</button></a>
+                      <a href="{{ route('user.editform',['id'=>$user->id]) }}"><button class="btn btn-primary btn-sm">Edit</button></a>
+                      <a href="{{ route('user.remove',['id'=>$user->id]) }}"><button class="btn btn-danger btn-sm">Delete</button></a>
                     </td>
                   </tr>
                 @endforeach

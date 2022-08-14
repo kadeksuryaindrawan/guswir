@@ -68,7 +68,7 @@
                 <!-- Table -->
                 <table style="width: 100%;">
                 <tr>
-                    <th>ORDER ID</th>
+                    <th>ID</th>
                     <th>NAMA</th>
                     <th>EMAIL</th>
                     <th>KOTA</th>
@@ -76,14 +76,14 @@
                     <th>ONGKIR</th>
                     <th>TOTAL HARGA</th>
                 </tr>
-                @foreach ($orders as $order)
+                @foreach ($pembelians as $pembelian)
                 <tr>
-                    <td>{{$order->id}}</td>
-                    <td>{{$order->user->name}}</td>
-                    <td>{{$order->user->email}}</td>
-                    <td>{{$order->city}}</td>
+                    <td>{{$pembelian->id}}</td>
+                    <td>{{$pembelian->user->name}}</td>
+                    <td>{{$pembelian->user->email}}</td>
+                    <td>{{$pembelian->city}}</td>
                     <td>
-                    @foreach ($order->cart->items as $item)
+                    @foreach ($pembelian->cart->items as $item)
                             <div class="order-detail">
                                 <h3>{{ $item['item']['name'] }}</h3>
                                 <p>Jumlah : {{ $item['quantity'] }}</p>
@@ -92,8 +92,8 @@
                             </div>
                     @endforeach
                 </td>
-                    <td>Rp. {{ number_format( $order->ongkir,0,",",".") }}</td>
-                    <td>Rp. {{ number_format( ($order->cart->totalPrice + $order->ongkir),0,",",".") }}</td>
+                    <td>Rp. {{ number_format( $pembelian->ongkir,0,",",".") }}</td>
+                    <td>Rp. {{ number_format( ($pembelian->cart->totalPrice + $pembelian->ongkir),0,",",".") }}</td>
                 </tr>
                 @endforeach
 

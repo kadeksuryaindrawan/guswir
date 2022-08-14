@@ -40,23 +40,15 @@ class User extends Authenticatable
     public static function boot()
     {
         parent::boot();
-        static::created(function ($user){
-            $user->profile()->create();
-        });
     }
 
-    public function profile()
+    public function pembelians()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasMany(Pembelian::class);
     }
 
-    public function orders()
+    public function berinilai()
     {
-        return $this->hasMany(Order::class);
-    }
-
-    public function ulasan()
-    {
-        return $this->hasMany(Ulasan::class);
+        return $this->hasMany(BeriNilai::class);
     }
 }

@@ -9,7 +9,7 @@
       <div class="fixedfilter">
 
         <h3><i class="fa fa-filter"></i> Filter </h3>
-        <input class="mt-3" type="text" id="search" placeholder="Enter product name" style="width:100%;">
+        <input class="mt-3" type="text" id="search" placeholder="Enter produk name" style="width:100%;">
 
         <div class="filterprice card">
           <div class="card-body">
@@ -22,9 +22,9 @@
       </div>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-7 pr-4">
-      <h3>Product</h3>
+      <h3>Produk</h3>
       
-      <div class="row d-flex justify-content-start" id="products">
+      <div class="row d-flex justify-content-start" id="produks">
         
       </div>
 
