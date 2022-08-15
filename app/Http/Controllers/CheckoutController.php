@@ -78,6 +78,9 @@ class CheckoutController extends Controller
         if($city == 'Badung'){
             return '<option value="13000">Rp. 13.000</option>';
         }
+        if($city == 'Bangli'){
+            return '<option value="14000">Rp. 14.000</option>';
+        }
         if($city == 'Buleleng'){
             return '<option value="19000">Rp. 19.000</option>';
         }
