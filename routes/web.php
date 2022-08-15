@@ -23,8 +23,9 @@ Route::get('/pembelianBaru', 'AdminController@pembelianBaru')->name('admin.pembe
 Route::get('/pembelian/{id}', 'AdminController@show_pembelian')->name('admin.showpembelian')->middleware(['auth','admin']);
 
 Route::get('/laporan', 'AdminController@laporan')->name('admin.laporan')->middleware(['auth','admin']);
-Route::post('/laporan/bulan', 'AdminController@laporanBulan')->name('laporan')->middleware(['auth','admin']);
-Route::get('/unduh-laporan/{bulan}', 'AdminController@laporanUnduh')->name('laporan.unduh')->middleware(['auth','admin']);
+Route::post('/laporan/bulan', 'AdminController@laporanBulan')->name('laporanBulan')->middleware(['auth','admin']);
+Route::post('/laporan/bulan/tahun', 'AdminController@laporanTahun')->name('laporanTahun')->middleware(['auth','admin']);
+Route::get('/unduh-laporan/{bulan}/{tahun}', 'AdminController@laporanUnduh')->name('laporan.unduh')->middleware(['auth','admin']);
 
 Route::get('/pembelian-acc/{id}', 'AdminController@pembelianAcc')->name('pembelian.acc')->middleware(['auth','admin']);
 Route::get('/pembelian-del/{id}', 'AdminController@pembelianDel')->name('pembelian.del')->middleware(['auth','admin']);
