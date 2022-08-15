@@ -107,250 +107,56 @@ class AdminController extends Controller
     public function laporanBulan(Request $request)
     {
         $bulan = $request->bulan;
-
-        if($bulan == '01'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'01']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '02'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'02']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '03'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'03']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '04'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'04']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '05'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'05']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '06'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'06']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '07'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'07']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '08'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'08']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '09'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'09']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '10'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'10']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '11'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'11']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
-        if($bulan == '12'){
-            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
-            ?>
-                <a href="<?= route('laporan.unduh',['bulan'=>'12']) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
-            <?php
-            foreach ($pembelians as $pembelian){
-                ?>
-                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
-                        <div class="row">
-                            <div class="col-12 d-flex">
-                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
-                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
-                                <div class="name">Customer Name: <?=$pembelian->name?></div>
-                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
-                            </div>
-                        </div>
-                    </a>
-                <?php
-            };
-        }
+        ?>
+        <option value="">Pilih tahun</option>
+            <option value="<?=$bulan?> 2020">2020</option>
+            <option value="<?=$bulan?> 2021">2021</option>
+            <option value="<?=$bulan?> 2022">2022</option>
+            <option value="<?=$bulan?> 2023">2023</option>
+            <option value="<?=$bulan?> 2024">2024</option>
+            <option value="<?=$bulan?> 2025">2025</option>
+            <option value="<?=$bulan?> 2026">2026</option> 
+            <option value="<?=$bulan?> 2027">2027</option> 
+            <option value="<?=$bulan?> 2028">2028</option>       
+        
+        <?php
+        
+        
     }
 
-    public function laporanUnduh($bulan)
+    public function laporanTahun(Request $request)
+    {
+        
+        $format = $request->tahun;
+        $pecah = explode(" ",$format);
+        for($i = 0; $i < count( $pecah ); $i++){
+            $pecah[$i];
+        }
+        $bulan = $pecah[0];
+        $tahun = $pecah[1];
+
+            $pembelians = Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->whereYear('created_at',$tahun)->orderBy('created_at','DESC')->get();
+            ?>
+                <a href="<?= route('laporan.unduh',['bulan'=>$bulan,'tahun'=>$tahun]) ?>"><button class="btn btn-primary btn-sm mb-4">Unduh Laporan</button></a></div>
+            <?php
+            foreach ($pembelians as $pembelian){
+                ?>
+                    <a href="<?=route('admin.showpembelian',['id'=>$pembelian->id])?>" class="list-group-item latest-pembelian">
+                        <div class="row">
+                            <div class="col-12 d-flex">
+                                <div class="id" style="width:150px">pembelian ID: <?= $pembelian->id ?></div>
+                                <div class="id" style="width:350px">Tanggal pembelian: <?= date("d-M-Y",strtotime($pembelian->created_at)) ?> </div>
+                                <div class="name">Customer Name: <?=$pembelian->name?></div>
+                                <div class="status text-primary ml-auto"><?=$pembelian->status?></div> 
+                            </div>
+                        </div>
+                    </a>
+                <?php
+            };
+        
+    }
+
+    public function laporanUnduh($bulan,$tahun)
     {
         if($bulan == '01'){
             $month = 'Januari';
@@ -389,14 +195,14 @@ class AdminController extends Controller
             $month = 'Desember';
         }
 
-        $pembelians =Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->orderBy('created_at','DESC')->get();
+        $pembelians =Pembelian::where('status','selesai')->whereMonth('created_at',$bulan)->whereYear('created_at',$tahun)->orderBy('created_at','DESC')->get();
         $pembelians->transform(function($pembelians,$key){
             $pembelians->cart = unserialize($pembelians->cart);
             return $pembelians;
         });
 
-        $pdf = PDF::loadview('admin.laporanpdf',compact('pembelians','month'))->setPaper('a4', 'landscape');
-    	return $pdf->download(date('dmyHi').'-'.strtoupper(str_replace(' ','_','laporan-bulan-'.$bulan)).'.pdf');
+        $pdf = PDF::loadview('admin.laporanpdf',compact('pembelians','month','tahun'))->setPaper('a4', 'landscape');
+    	return $pdf->download(date('dmyHi').'-'.strtoupper(str_replace(' ','_','laporan-bulan-'.$bulan.'-tahun-'.$tahun)).'.pdf');
     }
 
     public function show_pembelian($id)

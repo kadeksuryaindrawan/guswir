@@ -56,7 +56,7 @@
 
         <center>        <hr>
             <h2>Data Laporan Penjualan
-        <br> Bulan {{$month}}
+        <br> Bulan {{$month}} Tahun {{ $tahun }}
         </h2></center>
         <hr>
         <!-- Report Content -->
@@ -68,6 +68,7 @@
                 <!-- Table -->
                 <table style="width: 100%;">
                 <tr>
+                    <th>TANGGAL</th>
                     <th>ID</th>
                     <th>NAMA</th>
                     <th>EMAIL</th>
@@ -78,6 +79,7 @@
                 </tr>
                 @foreach ($pembelians as $pembelian)
                 <tr>
+                    <td>{{date("d-M-Y",strtotime($pembelian->created_at))}}</td>
                     <td>{{$pembelian->id}}</td>
                     <td>{{$pembelian->user->name}}</td>
                     <td>{{$pembelian->user->email}}</td>
